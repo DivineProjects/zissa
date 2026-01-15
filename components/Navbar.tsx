@@ -45,7 +45,7 @@ export function Navbar() {
               <Link href="/" className="text-lg font-semibold">
                 <div className="flex items-center gap-2">
                   <BarChart3 size={28} />
-                  <span className="text-xl text-lg sm:text-xl font-bold">ZiSSA</span>
+                  <span className="text-xl text-lg sm:text-xl font-bold">Zimbabwe Statistical Science</span>
                 </div>
               </Link>
             
