@@ -40,15 +40,13 @@ export function Navbar() {
     >
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          
-          <Link href="/" className="text-lg font-semibold">
-            <div className="flex items-center gap-2 text-white">
-              <BarChart3 size={28} className="text-primary-foreground" />
-              <span className="text-xl font-bold">Zimbabwe Statistical Science Association</span>
+
+            <div className="flex items-center gap-2">
+              <Link href="/" className="text-lg font-semibold">
+                  <BarChart3 size={28} className="text-primary-foreground" />
+                  <span className="text-xl font-bold">Zimbabwe Statistical Science Association</span>
+              </Link>
             </div>
-            
-          </Link>
 
           {/* Desktop Nav */}
           <NavigationMenu className="hidden md:flex">
