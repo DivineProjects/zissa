@@ -2,7 +2,8 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Menu, BarChart3 } from "lucide-react"
+import Image from "next/image"
+import { Menu } from "lucide-react"
 
 import {
   NavigationMenu,
@@ -41,12 +42,23 @@ export function Navbar() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex h-16 items-center justify-between">
 
-            <div className="flex items-center gap-2">
+            
               <Link href="/" className="text-lg font-semibold">
-                  <BarChart3 size={28} className="text-primary-foreground" />
-                  <span className="text-xl font-bold">Zimbabwe Statistical Science Association</span>
+                <div className="flex items-center gap-2">
+                  <Image
+                    src="/logo.svg"
+                    alt="ZiSSA Logo"
+                    width={32}   // smaller on mobile
+                    height={32}
+                    className="rounded-full sm:w-40 sm:h-40" // adjust for larger screens
+                  />
+                  <span className="text-lg sm:text-xl font-bold text-background">
+                    Zimbabwe Statistical Science
+                  </span>
+                </div>
+                
               </Link>
-            </div>
+            
 
           {/* Desktop Nav */}
           <NavigationMenu className="hidden md:flex">
