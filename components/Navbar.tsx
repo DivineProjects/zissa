@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Menu } from "lucide-react"
+import { Menu, BarChart3 } from "lucide-react"
 
 import {
   NavigationMenu,
@@ -19,6 +19,7 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet"
+
 
 export function Navbar() {
   const [scrolled, setScrolled] = React.useState(false)
@@ -39,10 +40,14 @@ export function Navbar() {
     >
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex h-16 items-center justify-between">
-          
           {/* Logo */}
+          
           <Link href="/" className="text-lg font-semibold">
-            Zimbabwe Stastical Science Association
+            <div className="flex items-center gap-2 text-white">
+              <BarChart3 size={28} className="text-primary-foreground" />
+              <span className="text-xl font-bold">Zimbabwe Statistical Science Association</span>
+            </div>
+            
           </Link>
 
           {/* Desktop Nav */}
