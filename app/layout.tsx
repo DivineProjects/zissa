@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import type { ReactNode } from "react";
+import { CommandPalette } from "@/components/CommandPalette";
 
 import {Navbar} from "@/components/Navbar"
 
@@ -30,6 +32,8 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Navbar />
+        <CommandPalette />
+
         <main className="pt-20">{children}</main>
       </body>
     </html>
