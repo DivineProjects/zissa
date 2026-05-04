@@ -3,19 +3,20 @@
 import { motion } from "framer-motion"
 import Link from "next/link"
 
-const ease = [0.25, 0.1, 0.25, 1]
+// Adding 'as const' fixes the "Type 'number[]' is not assignable" error
+const ease = [0.25, 0.1, 0.25, 1] as const
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center bg-[#0B1F3A] overflow-hidden py-24">
+    <section className="relative min-h-screen flex items-center bg-[var(--navy-deep)] overflow-hidden py-24">
 
-      {/* Grid texture */}
+      {/* Grid texture - Updated to match calibrated gold */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 opacity-[.06] pointer-events-none"
+        className="absolute inset-0 opacity-[.04] pointer-events-none"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(184,148,26,1) 1px,transparent 1px),linear-gradient(90deg,rgba(184,148,26,1) 1px,transparent 1px)",
+            "linear-gradient(var(--gold) 1px,transparent 1px),linear-gradient(90deg,var(--gold) 1px,transparent 1px)",
           backgroundSize: "64px 64px",
         }}
       />
@@ -23,8 +24,8 @@ export function Hero() {
       {/* Glow blob */}
       <div
         aria-hidden="true"
-        className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle,rgba(26,54,102,.7) 0%,transparent 70%)" }}
+        className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full pointer-events-none opacity-50"
+        style={{ background: "radial-gradient(circle, var(--navy-light) 0%, transparent 70%)" }}
       />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-10 lg:px-16">
@@ -38,8 +39,8 @@ export function Hero() {
               transition={{ duration: 0.55, ease }}
               className="flex items-center gap-3 mb-6"
             >
-              <div className="h-px w-8 bg-[#B8941A] shrink-0" />
-              <span className="text-[#B8941A] text-[10px] font-semibold tracking-[.25em] uppercase">
+              <div className="h-px w-8 bg-[var(--gold)] shrink-0" />
+              <span className="text-[var(--gold)] text-[10px] font-bold tracking-[.25em] uppercase">
                 Est. 1991 · Zimbabwe
               </span>
             </motion.div>
@@ -48,11 +49,11 @@ export function Hero() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, delay: 0.1, ease }}
-              className="text-[clamp(36px,6vw,66px)] font-bold leading-[1.05] text-white mb-6"
-              style={{ fontFamily: "'Playfair Display',Georgia,serif", fontWeight: 900 }}
+              className="text-[clamp(42px,6vw,72px)] font-bold leading-[1.05] text-[var(--ivory)] mb-8"
+              style={{ fontFamily: "var(--font-display), Georgia, serif", fontWeight: 900 }}
             >
               Advancing<br />
-              <span className="text-[#B8941A]">Excellence</span><br />
+              <span className="text-[var(--gold-light)]">Excellence</span><br />
               in Statistical<br />
               Practice
             </motion.h1>
@@ -61,67 +62,60 @@ export function Hero() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.22, ease }}
-              className="text-base sm:text-[17px] leading-[1.75] text-white/60 max-w-[480px] mb-10"
+              className="text-base sm:text-[18px] leading-relaxed text-white/70 max-w-[520px] mb-12"
             >
-              Zimbabwe's national professional body for statisticians, data scientists,
-              and quantitative researchers — setting the standard for rigour, ethics,
-              and impact across all sectors.
+              Zimbabwe&apos;s national professional body for statisticians and data scientists,
+              setting the global standard for rigour, ethics, and impactful research.
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.38, ease }}
-              className="flex flex-wrap gap-3"
+              className="flex flex-wrap gap-4"
             >
               <Link
                 href="/membership/join"
-                className="group inline-flex items-center gap-2 bg-[#B8941A] text-[#0B1F3A] text-[11px] font-bold tracking-[.12em] uppercase px-6 py-[14px] rounded-sm transition-all duration-200 hover:bg-[#D4AD30] hover:-translate-y-px"
+                className="group inline-flex items-center gap-2 bg-[var(--gold-light)] text-[var(--navy-deep)] text-[12px] font-bold tracking-[.15em] uppercase px-8 py-4 transition-all duration-300 hover:bg-[var(--gold)] hover:-translate-y-1"
               >
                 Become a Member
-                <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
               </Link>
               <Link
                 href="/standards"
-                className="inline-flex items-center gap-2 border border-white/20 text-white/75 text-[11px] font-semibold tracking-[.12em] uppercase px-6 py-[14px] rounded-sm transition-all duration-200 hover:border-[#B8941A] hover:text-[#B8941A]"
+                className="inline-flex items-center gap-2 border border-white/20 text-white/90 text-[12px] font-bold tracking-[.15em] uppercase px-8 py-4 transition-all duration-300 hover:border-[var(--gold-light)] hover:text-[var(--gold-light)]"
               >
                 Our Standards
               </Link>
             </motion.div>
-
-            {/* Tagline strip */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.65 }}
-              className="mt-12 pt-6 border-t border-white/[.06] hidden sm:flex flex-wrap gap-4 lg:gap-6"
-            >
-              {["Professional Standards", "Ethical Practice", "Research Excellence", "Policy Influence"].map((t, i, arr) => (
-                <span key={i} className="text-[10px] font-semibold tracking-[.2em] uppercase text-white/25">
-                  {t}{i < arr.length - 1 && <span className="ml-4 text-[#B8941A]/30">·</span>}
-                </span>
-              ))}
-            </motion.div>
           </div>
 
-          {/* ── Emblem — desktop only ── */}
+          {/* ── Emblem — High Contrast Version ── */}
           <motion.div
-            initial={{ opacity: 0, x: 28 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, delay: 0.3, ease }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.4, ease }}
             className="hidden lg:flex items-center justify-center"
             aria-hidden="true"
           >
-            <div className="relative w-[260px] h-[260px]">
-              <div className="absolute inset-0 rounded-full border border-[#B8941A]/18" />
-              <div className="absolute inset-5 rounded-full border border-[#B8941A]/10" />
-              <div className="absolute inset-11 rounded-full bg-[#122848] border border-white/[.07] flex flex-col items-center justify-center">
-                <span className="text-[68px] font-bold text-[#B8941A] leading-none" style={{ fontFamily: "Georgia,serif" }}>Σ</span>
-                <span className="text-[8px] font-bold tracking-[.25em] uppercase text-white/35 mt-1">ZiSSA</span>
+            <div className="relative w-[320px] h-[320px]">
+              {/* Outer rings with brand variables */}
+              <div className="absolute inset-0 rounded-full border border-[var(--gold)]/20 animate-[pulse_4s_infinite]" />
+              <div className="absolute inset-8 rounded-full border border-[var(--gold)]/10" />
+              
+              <div className="absolute inset-16 rounded-full bg-[var(--navy-mid)] border border-white/10 shadow-2xl flex flex-col items-center justify-center">
+                <span className="text-[84px] font-bold text-[var(--gold-light)] leading-none" style={{ fontFamily: "Georgia, serif" }}>Σ</span>
+                <span className="text-[10px] font-bold tracking-[.3em] uppercase text-white/40 mt-2">ZiSSA</span>
               </div>
-              {/* Cardinal dots */}
-              {[{top:"1px",left:"50%",transform:"translateX(-50%)"},{bottom:"1px",left:"50%",transform:"translateX(-50%)"},{left:"1px",top:"50%",transform:"translateY(-50%)"},{right:"1px",top:"50%",transform:"translateY(-50%)"}].map((s,i)=>(
-                <div key={i} className="absolute w-2 h-2 rounded-full bg-[#B8941A]/45" style={s as React.CSSProperties} />
+
+              {/* Cardinal Accents using calibrated gold */}
+              {[
+                { top: "0", left: "50%", transform: "translateX(-50%)" },
+                { bottom: "0", left: "50%", transform: "translateX(-50%)" },
+                { left: "0", top: "50%", transform: "translateY(-50%)" },
+                { right: "0", top: "50%", transform: "translateY(-50%)" }
+              ].map((style, i) => (
+                <div key={i} className="absolute w-2 h-2 rounded-full bg-[var(--gold)]" style={style as React.CSSProperties} />
               ))}
             </div>
           </motion.div>
