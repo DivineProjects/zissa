@@ -1,120 +1,154 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&display=swap');
 
-@custom-variant dark (&:is(.dark *));
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* In Tailwind v4, we use @theme to map CSS variables 
-  to Tailwind utility classes like `bg-background` or `text-primary`.
-*/
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+/* ---------- DESIGN TOKENS ---------- */
 
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
+:root {
+  --navy-deep:   #08142A;
+  --navy-mid:    #0d2040;
+  --navy-light:  #1a3560;
 
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
+  --gold:        #C9A84C;
+  --gold-light:  #e0c472;
 
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
+  --ivory:       #F5F0E8;
+  --ivory-dark:  #e8e2d9;
 
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
+  --slate:       #4a6a96;
+  --text-muted:  #6b7a8d;
 
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-
-  --radius-xl: var(--radius);
-  --radius-lg: calc(var(--radius) - 2px);
-  --radius-md: calc(var(--radius) - 4px);
-  --radius-sm: calc(var(--radius) - 6px);
+  --radius-soft: 6px;
 }
 
-@layer base {
-  :root {
-    --radius: 0.75rem;
+/* ---------- BASE ---------- */
 
-    /* ---------- LIGHT MODE ---------- */
-    --background: #f8fafc;
-    --foreground: #0f172a;
+html {
+  scroll-behavior: smooth;
+}
 
-    --card: #ffffff;
-    --card-foreground: #0f172a;
+body {
+  background: var(--ivory);
+  color: var(--navy-deep);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+}
 
-    --popover: #ffffff;
-    --popover-foreground: #0f172a;
+/* ---------- TYPOGRAPHY ---------- */
 
-    --primary: #4f46e5;
-    --primary-foreground: #ffffff;
+.font-display {
+  font-family: 'Playfair Display', Georgia, serif;
+}
 
-    --secondary: #e2e8f0;
-    --secondary-foreground: #1e293b;
+h1, h2, h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  letter-spacing: -0.02em;
+}
 
-    --muted: #f1f5f9;
-    --muted-foreground: #64748b;
+/* ---------- UTILITIES ---------- */
 
-    --accent: #f0f9ff;
-    --accent-foreground: #0ea5e9;
+.text-balance {
+  text-wrap: balance;
+}
 
-    --destructive: #ef4444;
-    --destructive-foreground: #ffffff;
+.gold-gradient {
+  background: linear-gradient(135deg, #C9A84C, #e0c472);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
-    --border: #e2e8f0;
-    --input: #e2e8f0;
-    --ring: #4f46e5;
-  }
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #e8e2d9, transparent);
+}
 
-  .dark {
-    /* ---------- DARK MODE ---------- */
-    --background: #020617;
-    --foreground: #f8fafc;
+/* ---------- CARD ---------- */
 
-    --card: #0f172a;
-    --card-foreground: #f8fafc;
+.card {
+  background: white;
+  border: 1px solid var(--ivory-dark);
+  transition: all 0.4s ease;
+}
 
-    --popover: #0f172a;
-    --popover-foreground: #f8fafc;
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(8, 20, 42, 0.08);
+}
 
-    --primary: #6366f1;
-    --primary-foreground: #ffffff;
+/* ---------- BUTTONS ---------- */
 
-    --secondary: #1e293b;
-    --secondary-foreground: #f8fafc;
+.btn-primary {
+  background: var(--navy-deep);
+  color: white;
+  transition: all 0.4s ease;
+}
 
-    --muted: #1e293b;
-    --muted-foreground: #94a3b8;
+.btn-primary:hover {
+  background: var(--gold);
+  color: var(--navy-deep);
+}
 
-    --accent: #1e293b;
-    --accent-foreground: #38bdf8;
+.btn-cta {
+  background: var(--navy-deep);
+  color: white;
+  box-shadow: 0 10px 30px rgba(8, 20, 42, 0.2);
+  transition: all 0.4s ease;
+}
 
-    --destructive: #7f1d1d;
-    --destructive-foreground: #f8fafc;
+.btn-cta:hover {
+  background: var(--gold);
+  color: var(--navy-deep);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(8, 20, 42, 0.25);
+}
 
-    --border: #1e293b;
-    --input: #1e293b;
-    --ring: #6366f1;
-  }
+/* ---------- LINK ANIMATION ---------- */
 
-  * {
-    @apply border-border outline-ring/50;
-  }
+.link-underline {
+  position: relative;
+}
 
-  body {
-    @apply bg-background text-foreground;
-  }
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 1px;
+  width: 0;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
 
-  html {
-    scroll-behavior: smooth;
-  }
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* ---------- SELECTION ---------- */
+
+::selection {
+  background-color: #C9A84C;
+  color: #08142A;
+}
+
+/* ---------- SCROLLBAR ---------- */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #08142A;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1a3560;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C9A84C;
 }
