@@ -4,37 +4,37 @@ import mongoose, { Schema, Document, Model } from "mongoose"
    Sub-document interfaces
 ───────────────────────────────────────── */
 export interface IEducation {
-  degree: string        // e.g. "PhD Statistics"
-  institution: string   // e.g. "University of Zimbabwe"
-  year: string          // e.g. "2005"
-  honours?: string      // e.g. "With Distinction"
+  degree: string
+  institution: string
+  year: string
+  honours?: string
 }
 
 export interface IExperience {
-  title: string         // e.g. "Senior Statistician"
-  organisation: string  // e.g. "ZIMSTAT"
-  period: string        // e.g. "2010 – 2016"
+  title: string
+  organisation: string
+  period: string
   description?: string
 }
 
 export interface IResearch {
-  title: string         // e.g. "Bayesian Methods in Survey Sampling"
-  journal?: string      // e.g. "African Statistical Journal"
+  title: string
+  journal?: string
   year?: string
   doi?: string
   type: "publication" | "project" | "conference"
 }
 
 export interface IConsultancy {
-  project: string       // e.g. "National Household Survey 2022"
-  client: string        // e.g. "World Bank"
+  project: string
+  client: string
   period?: string
   description?: string
 }
 
 export interface IVolunteer {
-  role: string          // e.g. "Board Trustee"
-  organisation: string  // e.g. "African Statistical Institute"
+  role: string
+  organisation: string
   period?: string
   description?: string
 }
@@ -44,17 +44,18 @@ export interface IVolunteer {
 ───────────────────────────────────────── */
 export interface ILeadership extends Document {
   name: string
-  position: string          // e.g. "President"
-  department?: string       // e.g. "Executive Committee"
-  image?: string            // URL or path
+  position: string
+  department?: string
+  image?: string       /* UploadThing file URL  (ufsUrl) */
+  imageKey?: string    /* UploadThing file key  — used for deletion via UTApi */
   email?: string
-  biography: string         // Short professional biography paragraph
+  biography: string
   education: IEducation[]
   workExperience: IExperience[]
   research: IResearch[]
   consultancy: IConsultancy[]
   volunteerWork: IVolunteer[]
-  order: number             // controls display order on page
+  order: number
   isActive: boolean
   socialLinks?: {
     linkedin?: string
@@ -67,7 +68,7 @@ export interface ILeadership extends Document {
 }
 
 /* ─────────────────────────────────────────
-   Sub-document schemas (no _id needed)
+   Sub-document schemas
 ───────────────────────────────────────── */
 const EducationSchema = new Schema<IEducation>(
   {
@@ -125,36 +126,33 @@ const VolunteerSchema = new Schema<IVolunteer>(
 ───────────────────────────────────────── */
 const LeadershipSchema = new Schema<ILeadership>(
   {
-    name:      { type: String, required: true, trim: true },
-    position:  { type: String, required: true, trim: true },
-    department:{ type: String, trim: true },
-    image:     { type: String, trim: true },
-    email:     { type: String, trim: true, lowercase: true },
-    biography: { type: String, required: true, trim: true },
+    name:       { type: String, required: true, trim: true },
+    position:   { type: String, required: true, trim: true },
+    department: { type: String, trim: true },
+    image:      { type: String, trim: true },  /* UploadThing ufsUrl */
+    imageKey:   { type: String, trim: true },  /* UploadThing file key */
+    email:      { type: String, trim: true, lowercase: true },
+    biography:  { type: String, required: true, trim: true },
 
-    education:      { type: [EducationSchema],  default: [] },
-    workExperience: { type: [ExperienceSchema], default: [] },
-    research:       { type: [ResearchSchema],   default: [] },
+    education:      { type: [EducationSchema],   default: [] },
+    workExperience: { type: [ExperienceSchema],  default: [] },
+    research:       { type: [ResearchSchema],    default: [] },
     consultancy:    { type: [ConsultancySchema], default: [] },
-    volunteerWork:  { type: [VolunteerSchema],  default: [] },
+    volunteerWork:  { type: [VolunteerSchema],   default: [] },
 
-    order:    { type: Number, default: 99 },
+    order:    { type: Number,  default: 99 },
     isActive: { type: Boolean, default: true },
 
     socialLinks: {
-      linkedin:    { type: String },
-      researchgate:{ type: String },
-      orcid:       { type: String },
-      twitter:     { type: String },
+      linkedin:     { type: String },
+      researchgate: { type: String },
+      orcid:        { type: String },
+      twitter:      { type: String },
     },
   },
-  {
-    timestamps: true,
-    collection: "leadership",
-  }
+  { timestamps: true, collection: "leadership" }
 )
 
-/* Prevent model re-compilation in hot-reload (Next.js dev) */
 const Leadership: Model<ILeadership> =
   mongoose.models.Leadership ||
   mongoose.model<ILeadership>("Leadership", LeadershipSchema)
